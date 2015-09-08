@@ -7,7 +7,10 @@ RUN apt-get update && \
 ADD http://mirrors.jenkins-ci.org/war/1.625/jenkins.war /opt/jenkins.war
 RUN chmod 644 /opt/jenkins.war
 ENV JENKINS_HOME /jenkins
-
+#added chroot support
+RUN ln -sf /bin/true /usr/bin/ischroot &&\
+    ln -sf /bin/true /sbin/initctl
+    
 ENTRYPOINT ["java", "-jar", "/opt/jenkins.war"]
 EXPOSE 8080
 CMD [""]
